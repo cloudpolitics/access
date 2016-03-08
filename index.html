@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Access</title>
+    <link type="text/css" rel="stylesheet" href="libraries/leaflet-0.7.3/leaflet.css">
+    <link type="text/css" rel="stylesheet" href="libraries/leaflet-control-geocoder-1.3.2/Control.geocoder.css">
+    <link type="text/css" rel="stylesheet" href="libraries/bootstrap/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <h1><img src="logo.jpg" />Access<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="modal" data-target="#infoModal"></span></h1>
+    <div id="map"></div>
+    <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-  label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="infoModalLabel">Access</h4>
+          </div>
+          <div class="modal-body">
+            <p>This map </p>
+            <p>According to the MTA, accessibility features include:</p>
+            <ul>
+              <li>elevators or ramps</li>
+              <li>handrails on ramps and stairs</li>
+              <li>large-print and tactile-Braille signs</li>
+              <li>audio and visual information systems</li>
+              <li>accessible station booth windows</li>
+              <li>accessible MetroCard® Vending Machines</li>
+              <li>accessible service entry gates at subway stations</li>
+              <li>platform-edge warning strips</li>
+              <li>platform gap modifications or bridge plates to reduce or eliminate the gap  between trains and platforms</li>
+              <li>telephones at an accessible height with volume control, and text telephones ( TTYs)</li>
+              <li>accessible restrooms at commuter rail stations with restrooms (not all station  buildings have restrooms)</li>
+            </ul>
+            <p>For up-to-date information on elevator and escalator status, go <a href="http://advisory.mtanyct.info/EEoutage/" title="Elevator & Escalator Status">here</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="ada">
+      
+    </div>
+  </body>
+  <script type="text/javascript" src="libraries/leaflet-0.7.3/leaflet.js"></script>
+  <script type="text/javascript" src="libraries/jQuery/jquery-1.11.2.min.js"></script>
+  <script type="text/javascript" src="libraries/d3/d3.min.js"></script>
+  <script type="text/javascript" src="libraries/leaflet-control-geocoder-1.3.2/Control.Geocoder.js"></script>
+  <script type="text/javascript" src="libraries/bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="script.js"></script>
+</html>
