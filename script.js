@@ -1,10 +1,22 @@
 var map = L.map('map').setView([40.72,-73.91], 11);
 
 var tiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',{
-  attribution: 'Station Data &copy; <a href="https://nycopendata.socrata.com/">NYC Open Data</a>, Map Data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> Contributors, Map Tiles &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+  attribution: 'Wheelchair Icon &copy; <a href="accessibleicon.org">Accessible Icon Project</a>, Station Data &copy; <a href="https://nycopendata.socrata.com/">NYC Open Data</a> & <a href="http://web.mta.info/accessibility/stations.htm">MTA</a>, Map Data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> Contributors, Map Tiles &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
 });
 map.addLayer(tiles);
 L.Control.geocoder({placeholder: "Enter destination address", collapsed: false}).addTo(map);
+
+var legend = L.control({position: 'bottomleft'});
+
+legend.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'legend');    
+    div.innerHTML +=
+      '<svg width="22" height="27"><circle cx="10" cy="21" r="5" class="adaLegend" fill="blue"/></svg><span>Accessible station</span><br />' +
+      '<svg width="22" height="27"><circle cx="10" cy="21" r="5" class="nonadaLegend" fill="grey"/></svg><span>Non-accessible station</span><br />'
+    return div;
+};
+
+legend.addTo(map);
 
 $.getJSON( "MTA_subway_lines.geojson", function( data ) {
     var subwayLines = data;
@@ -37,7 +49,6 @@ $.getJSON( "MTA_subway_lines.geojson", function( data ) {
         opacity: 1.0,
         color: color
       };
-      console.log(color);
       return style
     }
     var subwayClick = function (feature, layer) {
@@ -49,28 +60,31 @@ $.getJSON( "MTA_subway_lines.geojson", function( data ) {
     }).addTo(map);
 
 });
+
 $.getJSON( "stations.geojson", function( data ) {
     var stations = data;
     var stationPTL = function(feature, latlng) {
-      if(feature.properties.entrance_type == "elevator") {
-        var stationMarker = L.circle(latlng, 200, {
-          stroke: false,
-          fillColor: 'red',
-          fillOpacity: .7
-        });
-        return stationMarker;
-      } else {
+      if(feature.properties.ada == "true") {
         var stationMarker = L.circleMarker(latlng, {
           stroke: false,
-          fillColor: 'gray',
-          fillOpacity: 0,
-          radius: 3
+          fillColor: 'blue',
+          fillOpacity: .7,
+          radius: 4,
+        });
+        return stationMarker;
+      } 
+      else {
+        var stationMarker = L.circleMarker(latlng, {
+          stroke: false,
+          fillOpacity: .4,
+          radius: 3,
+          color: 'grey'
         });
         return stationMarker;
       }
     }
     var stationClick = function(feature, layer) {
-      layer.bindPopup("<strong>Station:</strong> " + feature.properties.name + "<br /> <strong>Line(s):</strong> " + feature.properties.line + "<br /><a href='http://web.mta.info/accessibility/stations.htm'>More info</a>");
+      layer.bindPopup("<strong>Station:</strong> " + feature.properties.name + "<br /> <strong>Line(s):</strong> " + feature.properties.line + "<br /><strong>Elevator status:</strong> <a href='http://advisory.mtanyct.info/EEoutage/' target='_blank'>Check status</a>" + "<br /><a href='http://web.mta.info/accessibility/stations.htm' target='_blank'>More info</a>");
     }
     stationGeoJSON = L.geoJson(stations, {
       pointToLayer: stationPTL,
