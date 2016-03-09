@@ -4,7 +4,7 @@ var tiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.
   attribution: 'Wheelchair Icon &copy; <a href="accessibleicon.org">Accessible Icon Project</a>, Station Data &copy; <a href="https://nycopendata.socrata.com/">NYC Open Data</a> & <a href="http://web.mta.info/accessibility/stations.htm">MTA</a>, Map Data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> Contributors, Map Tiles &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
 });
 map.addLayer(tiles);
-L.Control.geocoder().addTo(map);
+L.Control.geocoder({placeholder: "Enter destination address", collapsed: false}).addTo(map);
 
 var legend = L.control({position: 'bottomleft'});
 
